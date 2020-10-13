@@ -12,6 +12,9 @@ export default class Orphanage {
   latitude: number;
 
   @Column()
+  longitude: number;
+  
+  @Column()
   about: string;
 
   @Column()
