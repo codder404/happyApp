@@ -20,9 +20,9 @@
 <strong>
 <br>
 <p align="center">
-    <a href="README.md">Inglês</a>
+    <a href="README-en.md">Inglês</a>
     ·
-    <a href="README-pt.md">Português</a>
+    <a href="README.md">Português</a>
 </p>
 
 <p align="center">
