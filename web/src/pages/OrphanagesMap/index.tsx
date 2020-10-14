@@ -46,14 +46,14 @@ function OrphanagesMap() {
         >
           <S.PopUp closeButton={false} minWidth={248} maxWidth={248}>
             Lar kuzola
-             <Link to="">
+             <Link to="/orphanage/1">
               <ArrowRightShort size={20} color="#FFF" />
              </Link>
           </S.PopUp>
         </Marker>
       </Map>
       
-      <S.CreateOrphanage to="/">
+      <S.CreateOrphanage to="/orphanage/create">
         <Plus size={32} color="#fff" />
       </S.CreateOrphanage>
    </S.Container>
