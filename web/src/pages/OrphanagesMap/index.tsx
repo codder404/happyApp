@@ -1,11 +1,22 @@
 import React from 'react';
-import { Plus, Sun } from '@styled-icons/boxicons-regular';
-import { Map, TileLayer } from 'react-leaflet';
+import { Link } from 'react-router-dom';
+import { Plus } from '@styled-icons/boxicons-regular';
+import { ArrowRightShort } from '@styled-icons/bootstrap';
+import { Map, TileLayer, Marker } from 'react-leaflet';
+import Leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import mapMark from '../../assets/images/mark.svg';
 
 import * as S from './styles';
+
+const mapIcon = Leaflet.icon({
+  iconUrl: mapMark,
+
+  iconSize: [58, 68],
+  iconAnchor: [29, 68],
+  popupAnchor: [178, 2]
+})
 
 function OrphanagesMap() {
   return (
@@ -28,6 +39,18 @@ function OrphanagesMap() {
       >
         {/* <TileLayer url="https://a.title.openstreetmap.org/{z}/{x}/{y}.png" /> */}
         <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`} />
+
+        <Marker
+          icon={mapIcon}
+          position={[-8.8971367, 13.3408652]}
+        >
+          <S.PopUp closeButton={false} minWidth={248} maxWidth={248}>
+            Lar kuzola
+             <Link to="">
+              <ArrowRightShort size={20} color="#FFF" />
+             </Link>
+          </S.PopUp>
+        </Marker>
       </Map>
       
       <S.CreateOrphanage to="/">
