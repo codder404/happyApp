@@ -72,24 +72,3 @@ export const CreateOrphanage = styled(Link)`
     background: #17d6ed;
   }
 `;
-
-export const ChangeTheme = styled.div`
-  position: absolute;
-  right: 40px;
-  top: 40px;
-
-  z-index: 10;
-
-  width: 64px;
-  height: 64px;
-  background: #15c3d6;
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.2s;
-
-  &:hover{
-    background: #17d6eb;
-  }
-`;

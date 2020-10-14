@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Plus, Sun } from '@styled-icons/boxicons-regular';
 import { Map, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -8,16 +8,6 @@ import mapMark from '../../assets/images/mark.svg';
 import * as S from './styles';
 
 function OrphanagesMap() {
-  const [theme, setTheme] = useState('light');
-
-  const changeTheme = () => {
-    if (theme === 'light') {
-      setTheme('dark');
-    } else {
-      setTheme('light');
-    }
-  }
-
   return (
     <S.Container>
       <S.Aside>
@@ -43,9 +33,6 @@ function OrphanagesMap() {
       <S.CreateOrphanage to="/">
         <Plus size={32} color="#fff" />
       </S.CreateOrphanage>
-      <S.ChangeTheme onClick={changeTheme}>
-        <Sun size={32} color={theme === 'light' ? '#fff' : '#161616' } />
-      </S.ChangeTheme>
    </S.Container>
   )
 }
