@@ -3,20 +3,11 @@ import { Link } from 'react-router-dom';
 import { Plus } from '@styled-icons/boxicons-regular';
 import { ArrowRightShort } from '@styled-icons/bootstrap';
 import { Map, TileLayer, Marker } from 'react-leaflet';
-import Leaflet from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 
+import mapIcon from '../../utils/mapIcon';
 import mapMark from '../../assets/images/mark.svg';
 
 import * as S from './styles';
-
-const mapIcon = Leaflet.icon({
-  iconUrl: mapMark,
-
-  iconSize: [58, 68],
-  iconAnchor: [29, 68],
-  popupAnchor: [178, 2]
-})
 
 function OrphanagesMap() {
   return (
