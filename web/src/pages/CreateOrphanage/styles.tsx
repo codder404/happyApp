@@ -86,15 +86,33 @@ export const InputTextarea = styled.textarea`
   line-height: 28px;
 `;
 
-export const UploadedImages = styled.div``;
+export const ImageContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 16px;
+`;
 
-export const NewImage = styled.button`
-  width: 100%;
-  height: 64px;
+export const ImagePreview = styled.img`
+  width: 100px;
+  height: 96px;
+  border-radius: 20px;
+  object-fit: cover;  
+`;
+
+export const NewImageLabel = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 96px;
   background: #F5F8FA;
   border: 1px dashed #96D2F0;
   border-radius: 20px;
   cursor: pointer;
+`;
+
+export const NewImageInput = styled.input`
+  display: none;
 `;
 
 export const ButtonSelect = styled.div`
