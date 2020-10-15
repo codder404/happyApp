@@ -19,6 +19,12 @@ export const CreateOrphanage = styled.form`
   padding: 64px 80px;
 
   overflow: hidden;
+
+  > .leaflet-container {
+    margin-bottom: 40px;
+    border: 1px solid #D3E2E5;
+    border-radius: 20px; 
+  }
 `;
 
 export const FormFieldset = styled.fieldset`
