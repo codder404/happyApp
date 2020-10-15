@@ -1,49 +1,80 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import { Whatsapp } from '@styled-icons/boxicons-logos';
 import { Clock, Info } from '@styled-icons/fa-solid';
 
+import api from '../../services/api';
 import Sidebar from '../../components/Sidebar';
 import mapIcon from '../../utils/mapIcon';
 
 import * as S from './styles';
 
+interface Orphanage {
+  latitude: number;
+  longitude: number;
+  name: string;
+  about: string;
+  instructions: string;
+  opening_hours: string;
+  open_on_weekends: string;
+  images: Array<{
+    id: number;
+    url: string;
+  }>;
+}
+
+interface OrphanageParams {
+  id: string;
+}
+
 function Orphanage() {
+  const params = useParams<OrphanageParams>();
+  const [orphanage, setOrphanage] = useState<Orphanage>();
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  useEffect(() => {
+    api.get(`orphanages/${params.id}`).then(response => {
+      setOrphanage(response.data);
+    })
+  }, [params.id]);
+
+  if (!orphanage) {
+    return <p>Carregando...</p>
+  }
   return (
     <S.Container>
       <Sidebar />
       <S.Main>
         <S.DetailsOrphanage>
-          <S.MainImg src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar kuzola" />
+          <S.MainImg src={orphanage?.images[activeImageIndex].url} alt={orphanage?.name} />
 
           <S.Images>
-            <S.MainBtn className="active" type="button">
-              <S.Img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar kuzola" />
-            </S.MainBtn>
-             <S.MainBtn type="button">
-              <S.Img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar kuzola" />
-            </S.MainBtn>
-             <S.MainBtn type="button">
-              <S.Img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar kuzola" />
-            </S.MainBtn>
-             <S.MainBtn type="button">
-              <S.Img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar kuzola" />
-            </S.MainBtn>
-             <S.MainBtn type="button">
-              <S.Img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar kuzola" />
-            </S.MainBtn>
-             <S.MainBtn type="button">
-              <S.Img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar kuzola" />
-            </S.MainBtn>
+            {orphanage.images.map((image, index) => {
+              return (
+                <S.MainBtn
+                  key={image.id}
+                  className={activeImageIndex === index ? 'active' : ''}
+                  type="button"
+                  onClick={() => {
+                    setActiveImageIndex(index);
+                  }}
+                >
+                  <S.Img src={image.url} alt={orphanage.name} />
+                </S.MainBtn>
+              )
+            })}
           </S.Images>
 
           <S.DetailsOrphanageContent>
-            <S.Title>Lar kuzola</S.Title>
-            <S.Text>Preste assistência a crianças de 06 a 15 anos que se encontre em situação de risco e/ou vulnerabilidade social.</S.Text>
+            <S.Title>{orphanage.name}</S.Title>
+            <S.Text>
+              {orphanage.about}
+            </S.Text>
 
             <S.MapContainer>
               <Map
-                center={[-27.2092052,-49.6401092]} 
+                center={[orphanage.latitude, orphanage.longitude]} 
                 zoom={16} 
                 style={{ width: '100%', height: 280 }}
                 dragging={false}
@@ -55,28 +86,38 @@ function Orphanage() {
                 <TileLayer 
                   url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
                 />
-                <Marker interactive={false} icon={mapIcon} position={[-27.2092052,-49.6401092]} />
+                <Marker interactive={false} icon={mapIcon} position={[orphanage.latitude, orphanage.longitude]} />
               </Map>
 
               <S.DetailsFooter>
-                <a href="#">Ver rota no Google Maps</a>
+                <a target="_blank" rel="noopener noreferrer" href={`https://www.google.com/maps/dir/?api=1&destination=${orphanage.latitude}, ${orphanage.longitude}`}>Ver rota no Google Maps</a>
               </S.DetailsFooter>
             </S.MapContainer>
             <hr />
             <S.TitleTwo>Instruções para visitas</S.TitleTwo>
-            <S.TextTwo>Venha como se sentir mais à vontade e traga muito amor para dar.</S.TextTwo>
+            <S.TextTwo>
+              {orphanage.instructions}
+            </S.TextTwo>
 
             <S.OpenDetails>
               <S.Hour>
                 <Clock size={32} color="#15B6D6" />
                 Segunda à Sexta <br />
-                8h às 18h
+                {orphanage.opening_hours}
               </S.Hour>
-              <S.OpenOnWeekends>
-                <Info size={32} color="#39CC83" />
-                Atendemos <br />
-                fim de semana
-              </S.OpenOnWeekends>
+              {orphanage.open_on_weekends ? (
+                <S.OpenOnWeekends>
+                  <Info size={32} color="#39CC83" />
+                  Atendemos <br />
+                  fim de semana
+                </S.OpenOnWeekends>
+              ) : (
+                <S.OpenOnWeekends className="dont_open">
+                  <Info size={32} color="#FF6690" />
+                  Não atendemos<br />
+                  fim de semana
+                </S.OpenOnWeekends>
+             )}
             </S.OpenDetails>
 
             <S.ContactBtn type="button">

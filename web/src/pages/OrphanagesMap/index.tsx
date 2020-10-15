@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus } from '@styled-icons/boxicons-regular';
 import { ArrowRightShort } from '@styled-icons/bootstrap';
 import { Map, TileLayer, Marker } from 'react-leaflet';
+
+import api from '../../services/api';
 
 import mapIcon from '../../utils/mapIcon';
 import mapMark from '../../assets/images/mark.svg';
 
 import * as S from './styles';
 
+interface Orphanage {
+  id: number;
+  latitude: number;
+  longitude: number;
+  name: string;
+}
+
 function OrphanagesMap() {
+  const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
+
+  useEffect(() => {
+    api.get('orphanages').then(response => {
+      setOrphanages(response.data);
+    })
+  }, []);
+
   return (
     <S.Container>
       <S.Aside>
@@ -31,17 +48,23 @@ function OrphanagesMap() {
         {/* <TileLayer url="https://a.title.openstreetmap.org/{z}/{x}/{y}.png" /> */}
         <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`} />
 
-        <Marker
-          icon={mapIcon}
-          position={[-8.8971367, 13.3408652]}
-        >
-          <S.PopUp closeButton={false} minWidth={248} maxWidth={248}>
-            Lar kuzola
-             <Link to="/orphanage/1">
-              <ArrowRightShort size={20} color="#FFF" />
-             </Link>
-          </S.PopUp>
-        </Marker>
+        {orphanages.map(orphanage => {
+          return (
+            <Marker
+              icon={mapIcon}
+              position={[orphanage.latitude, orphanage.longitude]
+              }
+              key={orphanage.id}
+            >
+              <S.PopUp closeButton={false} minWidth={248} maxWidth={248}>
+                {orphanage.name}
+                <Link to={`/orphanage/${orphanage.id}`}>
+                  <ArrowRightShort size={20} color="#FFF" />
+                </Link>
+              </S.PopUp>
+            </Marker>
+         )
+       })}
       </Map>
       
       <S.CreateOrphanage to="/orphanage/create">

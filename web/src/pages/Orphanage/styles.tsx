@@ -138,9 +138,15 @@ export const Hour = styled.div`
 `;
 
 export const OpenOnWeekends = styled.div`
-   background: linear-gradient(154.16deg, #EDFFF6 7.85%, #FFFFFF 91.03%);
+  background: linear-gradient(154.16deg, #EDFFF6 7.85%, #FFFFFF 91.03%);
   border: 1px solid #A1E9C5;
   color: #37C77F;
+
+  > .dont_open {
+      background: linear-gradient(154.16deg, #EDFFF6 7.85%, #FFFFFF 91.03%);
+      border: 1px solid #FFBCD4;
+      color: #FF6690;
+  }
 `;
 
 export const ContactBtn = styled.button`
