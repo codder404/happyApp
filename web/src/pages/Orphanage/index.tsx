@@ -1,13 +1,13 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import { Whatsapp } from '@styled-icons/boxicons-logos';
-import { Clock, Info, ArrowLeft } from 'styled-icons/fa-solid';
+import { Clock, Info } from '@styled-icons/fa-solid';
 import L from 'leaflet';
 
 import mapMarkerImg from '../../assets/images/mark.svg';
 
 import * as S from './styles';
+import Sidebar from '../../components/Sidebar';
 
 const happyMapIcon = L.icon({
   iconUrl: mapMarkerImg,
@@ -18,20 +18,9 @@ const happyMapIcon = L.icon({
 });
 
 function Orphanage() {
-  const { goBack } = useHistory();
-  
   return (
     <S.Container>
-      <S.Aside>
-        <S.HappyImg src={mapMarkerImg} alt="Happy" />
-
-        <S.Footer>
-          <S.OrphButton type="button" onClick={goBack}>
-            <ArrowLeft size={24} color="#FFF" />
-          </S.OrphButton>
-        </S.Footer>
-      </S.Aside>
-
+      <Sidebar />
       <S.Main>
         <S.DetailsOrphanage>
           <S.MainImg src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar kuzola" />
