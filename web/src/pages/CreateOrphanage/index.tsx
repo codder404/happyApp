@@ -1,11 +1,11 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { ArrowLeft, Plus } from '@styled-icons/fa-solid';
+import { Plus } from '@styled-icons/fa-solid';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
 
 import mapMarkerImg from '../../assets/images/mark.svg';
 
+import Sidebar from '../../components/Sidebar';
 import * as S from './styles';
 
 const happyMapIcon = L.icon({
@@ -17,19 +17,9 @@ const happyMapIcon = L.icon({
 });
 
 function CreateOrphanage() {
-  const { goBack } = useHistory();
   return (
     <S.Container>
-      <S.Aside>
-        <S.HappyImg src={mapMarkerImg} alt="Happy" />
-
-        <S.Footer>
-          <S.OrphButton type="button" onClick={goBack}>
-            <ArrowLeft size={24} color="#FFF" />
-          </S.OrphButton>
-        </S.Footer>
-      </S.Aside>
-
+      <Sidebar />
       <S.Main>
         <S.CreateOrphanage>
           <S.FormFieldset>
