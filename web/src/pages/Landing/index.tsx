@@ -1,32 +1,29 @@
 import React from 'react';
 import { ArrowRightShort } from '@styled-icons/bootstrap';
-
 import logoImg from '../../assets/images/logo.svg';
 
-import * as S from './styles';
+import { PageLanding, ContentWrapper, Location, EnterApp } from './styles';
 
-function Landing () {
+const Landing: React.FC = () => {
   return (
-    <S.Container>
-      <S.ContentWrapper>
-        <S.Logo src={logoImg} alt="Happy" />
+    <PageLanding>
+      <ContentWrapper>
+        <img src={logoImg} alt="Happy" />
 
-        <S.LandingMain>
-          <S.LandingTitle>Leve felicidade para o mundo</S.LandingTitle>
-          <S.LandingText>
-            Visite orfanatos e mude o dia de muitas crianças.
-          </S.LandingText>
-        </S.LandingMain>
-        <S.Location>
-          <S.LocationStrong>Vila de Viana</S.LocationStrong>
-          <S.LocationSpan>Luanda</S.LocationSpan>
-        </S.Location>
+        <main>
+          <h1>Leve felicidade para o mundo</h1>
+          <p>Visite orfanatos e mude o dia de muitas crianças.</p>
+        </main>
 
-        <S.EnterApp to="/app">
-          <ArrowRightShort />
-        </S.EnterApp>
-      </S.ContentWrapper>
-    </S.Container>
+        <Location>
+          <strong>Luanda</strong>
+          <span>Vila de Viana</span>
+        </Location>
+        <EnterApp to="/app">
+          <ArrowRightShort size={26} color="rgba(0,0,0,0.6)" />
+        </EnterApp>
+      </ContentWrapper>
+    </PageLanding>
   )
 }
 
