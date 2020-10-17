@@ -46,9 +46,7 @@ export const Location = styled.div`
   flex-direction: column;
   text-align: right;
   transition: transform 0.2s;
-  &:hover {
-    transform: scale(1.5);
-  }
+  
   strong {
     font-weight: 800;
   }
